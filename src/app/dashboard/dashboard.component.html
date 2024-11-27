@@ -1,0 +1,106 @@
+<div class="container my-5">
+    
+    <div class="text-center mb-4">
+      <h1 class="text-primary">Welcome to Your Dashboard</h1>
+      <p class="lead">Hello, {{ userserve.currentUser.firstname }} {{ userserve.currentUser.lastname }}</p>
+    </div>
+  
+    
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-secondary">Account Details</h5>
+            <p><strong>User ID:</strong> {{ this.userId }}</p>
+            <p><strong>Account Number:</strong> {{ userserve.currentUser.accountNumber || 'Not generated yet' }}</p>
+            <p><strong>Email:</strong> {{ userserve.currentUser.email }}</p>
+            <p><strong>Account Type:</strong> {{ userserve.currentUser.accountType }}</p>
+            <p><strong>Available Balance:</strong> <span class="text-success"> {{0 |currency:'NGN':'symbol-narrow'}}</span></p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-6 text-center">
+        <p><img src="" alt="Profile Picture" class="rounded-circle img-fluid" style="max-width: 150px;"></p>
+        <button class="btn btn-outline-primary btn-sm mt-2">Edit Profile</button>
+      </div>
+    </div>
+  
+    
+    <div class="row mb-4 text-center">
+      <div class="col-md-4">
+        <button class="btn btn-primary w-100 py-3">Send</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-success w-100 py-3">Deposit</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-warning w-100 py-3">Withdraw</button>
+      </div>
+    </div>
+  
+    
+    <!-- <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Next of Kin</h5>
+        <form>
+          <div class="mb-3">
+            <input type="text" placeholder="Full Name" class="form-control">
+          </div>
+          <div class="mb-3">
+            <input type="text" placeholder="Relationship" class="form-control">
+          </div>
+          <div class="mb-3">
+            <input type="text" placeholder="Phone Number" class="form-control">
+          </div>
+          <button class="btn btn-primary w-100">Save</button>
+        </form>
+      </div>
+    </div> -->
+
+
+    <!-- <form (ngSubmit)="saveNextOfKin()">
+        <div class="mb-3">
+          <input type="text" [(ngModel)]="name" placeholder="Full Name" class="form-control" name="name" required>
+        </div>
+        <div class="mb-3">
+          <input type="text" [(ngModel)]="relationship" placeholder="Relationship" class="form-control" name="relationship" required>
+        </div>
+        <div class="mb-3">
+          <input type="text" [(ngModel)]="phone" placeholder="Phone Number" class="form-control" name="phone" required>
+        </div>
+        <button class="btn btn-primary w-100" type="submit">Save</button>
+      </form> -->
+      
+  
+    
+    <div class="row text-center">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Account Number Generation</h5>
+            <button class="btn btn-dark w-100" id="liveToastBtn" (click)="generate()">Generate</button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Set Transaction Pin</h5>
+            <button class="btn btn-danger w-100">Set Pin</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="text-success mx-auto text-center my-2">
+        {{this.msg}}
+      </div>
+    
+    <div class="text-center mt-4">
+      <button (click)="logout()" class="btn btn-outline-danger">Logout</button>
+    </div>
+  </div>
+  

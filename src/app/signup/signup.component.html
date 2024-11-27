@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="col-8 mx-auto shadow p-4 my-5">
+        <h1 class="text-success text-center p-2">Sign Up</h1>
+        <form #form="ngForm">
+            <input type="text" class="form-control my-2" placeholder="First Name" name="fname" #fname="ngModel" minlength="4" [(ngModel)]="firstname">
+            <div *ngIf="fname.invalid && fname.dirty">
+                <span class="text-danger" *ngIf="fname.hasError('minlength')">
+                    The minimum character length is 4
+                </span>
+                <span class="text-danger" *ngIf="fname.hasError('required')">
+                    This field is required
+                </span>
+           </div>
+
+           <input type="text" class="form-control my-2" placeholder="Last Name" name="lname" #lname="ngModel" minlength="4" [(ngModel)]="lastname">
+            <div *ngIf="lname.invalid && lname.dirty">
+                <span class="text-danger" *ngIf="lname.hasError('minlength')">
+                    The minimum character length is 4
+                </span>
+                <span class="text-danger" *ngIf="lname.hasError('required')">
+                    This field is required
+                </span>
+           </div>
+            <input type="text" class="form-control my-2" placeholder="Email Address" name="email" [(ngModel)]="email" required>
+            <div>
+                <span class="text-danger" *ngIf="fname.hasError('required')">
+                    This field is required
+                </span>
+            </div>
+            <input type="text" class="form-control my-2" placeholder="Password" name="password" [(ngModel)]="password" required>
+            <div>
+                <span class="text-danger" *ngIf="fname.hasError('required')">
+                    This field is required
+                </span>
+            </div>
+
+            <input type="text" class="form-control my-2" placeholder="Phone Number" name="phoneNumber" #pnumber="ngModel" [(ngModel)]="phoneNumber">
+            <div *ngIf="pnumber.invalid && pnumber.dirty">
+                <span class="text-danger" *ngIf="pnumber.hasError('required')">
+                    This field is required
+                </span>
+            </div>
+
+
+            <select class="form-select w-50 my-2" name="select" [(ngModel)]="accountType">
+                <option selected>Choose Account Type</option>
+                <option value="Savings">Savings Account</option>
+                <option value="Current">Current Account</option>
+                <option value="Fixed">Fixed Account</option>
+              </select>
+
+
+            <div>
+                <input type="checkbox" class="mx-2" name="checkbox" [(ngModel)]="isChecked">
+                <label>Confirm you're up to 18 years or more</label>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 my-2" [disabled]="!form.valid || isChecked == false" (click)="signup()">Sign Up</button>
+        </form>
+    </div>
+</div>
+
