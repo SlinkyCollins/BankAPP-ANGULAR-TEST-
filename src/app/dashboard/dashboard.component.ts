@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserserviceService } from '../service/userservice.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -23,50 +24,62 @@ export class DashboardComponent {
   public  name= '';
   public  relationship= '';
   public  phone= '';
-  public nextOfKin:any = {}
+  public nextOfKin:any = {};
+  public amount:number = 0;
+  public isGenerating = false;
   
   
   ngOnInit(){
     this.userId = this.userserve.userArray.findIndex((user:any, index:number)=>user.email == this.userserve.currentUser.email) + 1; 
   }
 
-
-
-saveNextOfKin() {
-  this.nextOfKin = {
-    name: this.name,
-    relationship: this.relationship,
-    phone: this.phone
-  }
-  this.userserve.currentUser.nextOfKin = this.nextOfKin; // Save to the current user
-  const index = this.userserve. userArray.findIndex(
-    (user: any) => user.email === this.userserve.currentUser.email
-  );
-  this.userserve.userArray[index].nextOfKin = this.nextOfKin;
-
-  // Update localStorage
-  localStorage.setItem('userArray', JSON.stringify(this.userserve.userArray));
-  this.msg = 'Next of kin saved successfully!';
-}
-
-
-  generate(){
-      const randomDigits = Math.floor(100000 + Math.random() * 900000); 
-      this.accountNo = `${this.userId}${randomDigits}`;
-      this.userserve.currentUser.accountNumber = this.accountNo; 
-    
+  deposit() {
+    if (this.amount > 0) {
+      this.userserve.currentUser.balance += this.amount;
   
       const index = this.userserve.userArray.findIndex(
         (user: any) => user.email === this.userserve.currentUser.email
       );
-      this.userserve.userArray[index].accountNumber = this.accountNo;
-    
+      this.userserve.userArray[index].balance = this.userserve.currentUser.balance;
   
+
       localStorage.setItem('userArray', JSON.stringify(this.userserve.userArray));
-      this.msg = 'Account number generated successfully!';
-    
-    
+      localStorage.setItem('currentUser', JSON.stringify(this.userserve.currentUser));
+  
+      this.msg = 'Deposit successful!';
+      setTimeout(() => (this.msg = ''), 3000);
+    } else {
+      this.msg = 'Enter a valid amount!';
+      setTimeout(() => (this.msg = ''), 3000);
+    }
   }
+
+
+  
+
+generate() {
+  if (!this.isGenerating) {
+    this.isGenerating = true; 
+
+    const randomDigits = Math.floor(100000 + Math.random() * 900000);
+    this.accountNo = `${this.userId}${randomDigits}`;
+    this.userserve.currentUser.accountNumber = this.accountNo;
+
+    
+    const index = this.userserve.userArray.findIndex(
+      (user: any) => user.email === this.userserve.currentUser.email
+    );
+    this.userserve.userArray[index].accountNumber = this.accountNo;
+    localStorage.setItem('userArray', JSON.stringify(this.userserve.userArray));
+
+    
+    this.msg = 'Account number generated successfully!';
+    setTimeout(() => {
+      this.msg = '';  
+    }, 3000); 
+  }
+}
+
 
 
   logout() {

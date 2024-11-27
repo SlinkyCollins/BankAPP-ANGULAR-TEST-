@@ -15,7 +15,7 @@
             <p><strong>Account Number:</strong> {{ userserve.currentUser.accountNumber || 'Not generated yet' }}</p>
             <p><strong>Email:</strong> {{ userserve.currentUser.email }}</p>
             <p><strong>Account Type:</strong> {{ userserve.currentUser.accountType }}</p>
-            <p><strong>Available Balance:</strong> <span class="text-success"> {{0 |currency:'NGN':'symbol-narrow'}}</span></p>
+            <p><strong>Available Balance:</strong> <span class="text-success"> {{userserve.currentUser.balance |currency:'NGN':'symbol-narrow'}}</span></p>
           </div>
         </div>
       </div>
@@ -32,15 +32,18 @@
         <button class="btn btn-primary w-100 py-3">Send</button>
       </div>
       <div class="col-md-4">
-        <button class="btn btn-success w-100 py-3">Deposit</button>
-      </div>
-      <div class="col-md-4">
         <button class="btn btn-warning w-100 py-3">Withdraw</button>
       </div>
     </div>
+
+    <div class="card-body">
+        <h5 class="card-title text-secondary">Deposit Funds</h5>
+        <input type="number" [(ngModel)]="amount" placeholder="Enter amount" class="form-control mb-3">
+        <button class="btn btn-success w-100" (click)="deposit()">Deposit</button>
+    </div>
   
     
-    <!-- <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm mb-4">
       <div class="card-body">
         <h5 class="card-title">Next of Kin</h5>
         <form>
@@ -56,21 +59,7 @@
           <button class="btn btn-primary w-100">Save</button>
         </form>
       </div>
-    </div> -->
-
-
-    <!-- <form (ngSubmit)="saveNextOfKin()">
-        <div class="mb-3">
-          <input type="text" [(ngModel)]="name" placeholder="Full Name" class="form-control" name="name" required>
-        </div>
-        <div class="mb-3">
-          <input type="text" [(ngModel)]="relationship" placeholder="Relationship" class="form-control" name="relationship" required>
-        </div>
-        <div class="mb-3">
-          <input type="text" [(ngModel)]="phone" placeholder="Phone Number" class="form-control" name="phone" required>
-        </div>
-        <button class="btn btn-primary w-100" type="submit">Save</button>
-      </form> -->
+    </div> 
       
   
     
@@ -79,7 +68,7 @@
         <div class="card shadow-sm">
           <div class="card-body">
             <h5 class="card-title">Account Number Generation</h5>
-            <button class="btn btn-dark w-100" id="liveToastBtn" (click)="generate()">Generate</button>
+            <button class="btn btn-dark w-100" id="liveToastBtn" [disabled]="isGenerating" (click)="generate()">Generate</button>
           </div>
         </div>
       </div>

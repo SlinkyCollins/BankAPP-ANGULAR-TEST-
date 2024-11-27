@@ -57,6 +57,10 @@
 
             <button type="submit" class="btn btn-success w-100 my-2" [disabled]="!form.valid || isChecked == false" (click)="signup()">Sign Up</button>
         </form>
+
+        <div class="text-danger">
+            {{this.msg}}
+        </div>
     </div>
 </div>
 
